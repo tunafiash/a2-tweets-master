@@ -13,7 +13,7 @@ function parseTweets(runkeeper_tweets) {
 	//It works correctly, your task is to update the text of the other tags in the HTML file!
 	document.getElementById('numberTweets').innerText = tweet_array.length;	
 
-	//sort tweets by time function
+	// sort tweets by time
 	tweet_array.sort(function(x, y) {
 		if (x.time < y.time) {
 			return -1;
@@ -28,14 +28,13 @@ function parseTweets(runkeeper_tweets) {
 		}
 	});
 
+	// replace dates with retrieved earliest & latest tweets
 	let earliestTweet = tweet_array[0];
 	let latestTweet = tweet_array[tweet_array.length - 1];
 	const dates = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
-	//test meow
-
 	document.getElementById('firstDate').innerText = earliestTweet.time.toLocaleDateString('en-US', dates);
-	document.getElementById('lastDate').innerText = earliestTweet.time.toLocaleDateString('en-US', dates);
+	document.getElementById('lastDate').innerText = latestTweet.time.toLocaleDateString('en-US', dates);
 }
 
 

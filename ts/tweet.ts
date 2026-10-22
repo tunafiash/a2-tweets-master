@@ -21,8 +21,8 @@ class Tweet {
         }
 
         else if (lower.startsWith('just finished') || lower.startsWith('done with') || lower.startsWith('just completed')
-        || lower.startsWith('just concluded') || lower.startsWith('just achieved') || lower.startsWith('just accomplished')
-        || lower.includes('finished') || lower.includes('completed') || lower.includes('achieved') || lower.endsWith('bye')) {
+        || lower.startsWith('just concluded') || lower.startsWith('just achieved') || lower.startsWith('just accomplished') || lower.startsWith('just posted')
+        || lower.includes('finished') || lower.includes('completed') || lower.includes('achieved') || lower.endsWith('#runkeeper')) {
 
             return 'completed_event';
 
@@ -30,7 +30,7 @@ class Tweet {
 
         // checks for completed event before personal goals --> completeness overrides PB/PR based on Prof. Reid's slack msg ?
         else if (lower.includes('my goal') || lower.includes('my achievement') || lower.includes('pr') || lower.includes('pb')
-        || lower.includes('personal best') || lower.includes('personal goal')) {
+        || lower.includes('personal best') || lower.includes('personal goal') || lower.endsWith('#fitnessalerts')) {
 
             return 'achievement';
         }
@@ -42,13 +42,22 @@ class Tweet {
 
     //returns a boolean, whether the text includes any content written by the person tweeting.
     get written():boolean {
-        //TODO: identify whether the tweet is written
-        return false;
+
+        let lower = this.text.toLowerCase();
+
+
+        if (lower.includes('@Runkeeper. Check it out!') && lower.length == 13) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
     }
 
     get writtenText():string {
         if(!this.written) {
-            return "";
+            return this.text.slice(0, -2);
         }
         //TODO: parse the written text from the tweet
         return "";

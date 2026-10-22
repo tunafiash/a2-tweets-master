@@ -37,6 +37,47 @@ function parseTweets(runkeeper_tweets) {
 	document.getElementById('lastDate').innerText = latestTweet.time.toLocaleDateString('en-US', dates);
 
 	// counting and formatting categorized tweets
+	let numLive = 0;
+	let numCompleted = 0;
+	let numAchievement = 0;
+	let numMiscellaneous  = 0;
+
+	tweet_array.forEach(function(tweet) {
+		if (tweet.source == 'live_event') {
+			numLive++;
+		}
+
+		else if (tweet.source == 'completed_event') {
+			numCompleted++;
+		}
+
+		else if (tweet.source == 'achievement') {
+			numAchievement++;
+		}
+
+		else {
+			numMiscellaneous++;
+		}
+	})
+
+	// formatted percentages w/ 2 decimal places
+	let total = tweet_array.length;
+	let formattedLive = math.format((numLive / total) * 100, {notation: 'fixed', precision: 2});
+	let formattedCompleted = math.format((numCompleted / total) * 100, {notation: 'fixed', precision: 2});
+	let formattedAchievement = math.format((numAchievement / total) * 100, {notation: 'fixed', precision: 2});
+	let formattedMiscellaneous = math.format((numMiscellaneous / total) * 100, {notation: 'fixed', precision: 2})
+
+	// update spans
+	document.querySelector('.completedEvents').innerText = numCompleted;
+    document.querySelector('.liveEvents').innerText = numLive;
+    document.querySelector('.achievements').innerText = numAchievement;
+    document.querySelector('.miscellaneous').innerText = numMiscellaneous;
+
+	document.querySelector('.completedEventsPct').innerText = formattedCompleted + '%';
+    document.querySelector('.liveEventsPct').innerText = formattedLive + '%';
+    document.querySelector('.achievementsPct').innerText = formattedAchievement + '%';
+    document.querySelector('.miscellaneousPct').innerText = formattedMiscellaneous + '%';
+
 }
 
 

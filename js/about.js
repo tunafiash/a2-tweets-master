@@ -32,6 +32,8 @@ function parseTweets(runkeeper_tweets) {
 	let latestTweet = tweet_array[tweet_array.length - 1];
 	const dates = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
 
+	//test meow
+
 	document.getElementById('firstDate').innerText = earliestTweet.time.toLocaleDateString('en-US', dates);
 	document.getElementById('lastDate').innerText = earliestTweet.time.toLocaleDateString('en-US', dates);
 }

@@ -46,7 +46,7 @@ class Tweet {
         let lower = this.text.toLowerCase();
 
 
-        if (lower.includes('with @Runkeeper. Check it out!')) {
+        if (lower.includes('with @runkeeper. check it out!')) {
             return false;
         }
 

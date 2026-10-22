@@ -9,7 +9,7 @@
 
 2. How long, in hours, did it take you to complete this assignment?
 day 1 (reading + setup): 1 hr
-day 2: 4 hours ish
+day 2: 5 hours ish
 
 
 3. What online resources did you consult when completing this assignment? (list sites like StackOverflow or specific URLs for tutorials; describe queries to Generative AI or use of AI-based code completion)

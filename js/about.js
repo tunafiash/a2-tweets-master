@@ -35,6 +35,8 @@ function parseTweets(runkeeper_tweets) {
 
 	document.getElementById('firstDate').innerText = earliestTweet.time.toLocaleDateString('en-US', dates);
 	document.getElementById('lastDate').innerText = latestTweet.time.toLocaleDateString('en-US', dates);
+
+	// counting and formatting categorized tweets
 }
 
 

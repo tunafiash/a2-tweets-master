@@ -46,7 +46,7 @@ class Tweet {
         let lower = this.text.toLowerCase();
 
 
-        if (lower.includes('@Runkeeper. Check it out!') && lower.length == 13) {
+        if (lower.includes('with @Runkeeper. Check it out!')) {
             return false;
         }
 
@@ -57,10 +57,18 @@ class Tweet {
 
     get writtenText():string {
         if(!this.written) {
-            return this.text.slice(0, -2);
+            return "";
         }
-        //TODO: parse the written text from the tweet
-        return "";
+
+        let mainText = this.text.slice(0, -2);
+        const divider = ' - '
+
+        if (mainText.startsWith('Just ') && mainText.includes(divider)) {
+            const dividerIndex = mainText.indexOf(divider);
+            return mainText.substring(dividerIndex + divider.length).trim();
+        }
+
+        return mainText;
     }
 
     get activityType():string {

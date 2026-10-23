@@ -84,7 +84,7 @@ function parseTweets(runkeeper_tweets) {
     document.querySelector('.miscellaneousPct').innerText = formattedMiscellaneous;
 
 
-	//user-written tweets
+	// user-written tweets
 	let numWritten = 0;
 
 	tweet_array.forEach(function(tweet) {
@@ -93,6 +93,7 @@ function parseTweets(runkeeper_tweets) {
 		}
 	});
 
+	// update spans (again)
 	let formattedWritten = math.format((numWritten / total) * 100, {notation: 'fixed', precision: 2}) + '%'
 	document.querySelector('.written').innerText = numWritten;
 	document.querySelector('.writtenPct').innerText = formattedWritten;

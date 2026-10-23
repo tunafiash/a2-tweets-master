@@ -75,8 +75,17 @@ class Tweet {
         if (this.source != 'completed_event') {
             return "unknown";
         }
-        //TODO: parse the activity type from the text of the tweet
-        return "";
+
+        let lowerText = this.text.toLowerCase()
+
+        // hardcode top 3 common activities
+        if (lowerText.includes("run")) return "run";
+        if (lowerText.includes("bike")) return "bike";
+        if (lowerText.includes("walk")) return "walk";
+
+        
+
+        return "unknown";
     }
 
     get distance():number {

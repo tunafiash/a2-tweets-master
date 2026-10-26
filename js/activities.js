@@ -89,9 +89,28 @@ function parseTweets(runkeeper_tweets) {
 	let longestActivity = topThree[0];
 	let shortestActivity = topThree[2];
 
+	// figure out if weekend or weekdays have higher average distance
+	let weekdayAverage = weekdayDistance / numWeekday;
+	let weekendAverage = weekendDistance / numWeekend;
+
+	let higherAverage = "both";
+	if (weekdayAverage > weekendAverage) {
+		higherAverage = "weekends";
+	}
+
+	else if (weekendAverage > weekdayAverage) {
+		higherAverage = "weekdays";
+	}
 
 	// update spans
 	document.getElementById('numberActivities').innerText = activityArray.length;
+	document.getElementById('firstmost').innerText = first;
+	document.getElementById('secondmost').innerText = second;
+	document.getElementById('thirdmost').innerText = third;
+
+	document.getElementById('longestActivityType').innerText = longestActivity;
+	document.getElementById('shortestActivityType').innerText = shortestActivity;
+	document.getElementById('weekdayOrWeekendLonger').innerText = higherAverage;
 
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
 

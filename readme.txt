@@ -10,10 +10,11 @@
 2. How long, in hours, did it take you to complete this assignment?
 day 1 (reading + setup): 1 hr
 day 2: 5 hours ish
+day 3: 4 hours
 
 
 3. What online resources did you consult when completing this assignment? (list sites like StackOverflow or specific URLs for tutorials; describe queries to Generative AI or use of AI-based code completion)
-
+- js syntax: https://www.w3schools.com/js/js_syntax.asp
 
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?

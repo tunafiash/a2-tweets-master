@@ -13,20 +13,9 @@ function parseTweets(runkeeper_tweets) {
 	//It works correctly, your task is to update the text of the other tags in the HTML file!
 	document.getElementById('numberTweets').innerText = tweet_array.length;	
 
+
 	// sort tweets by time
-	tweet_array.sort(function(x, y) {
-		if (x.time < y.time) {
-			return -1;
-		}
-
-		else if (x.time > y.time) {
-			return 1;
-		}
-
-		else {
-			return 0;
-		}
-	});
+	
 
 	// replace dates with retrieved earliest & latest tweets
 	let earliestTweet = tweet_array[0];

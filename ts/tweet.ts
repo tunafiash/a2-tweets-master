@@ -79,11 +79,41 @@ class Tweet {
         let lowerText = this.text.toLowerCase()
 
         // hardcode top 3 common activities
-        if (lowerText.includes("run")) return "run";
-        if (lowerText.includes("bike")) return "bike";
-        if (lowerText.includes("walk")) return "walk";
-
+        if (lowerText.includes("run")) {
+            return "run";
+        }
+        if (lowerText.includes("bike")) {
+            return "bike";
+        }
+        if (lowerText.includes("walk")) {
+            return "walk";
+        }
         
+        // parse less common activities based on completed events format
+        let miIndex = this.text.indexOf(" mi ");
+        let kmIndex = this.text.indexOf(" km ");
+        if (miIndex == -1 && kmIndex == -1) {
+            return "unknown"
+        }
+
+        // slices start and end
+        let sliceStart = -1;
+        if (miIndex != -1) {
+            sliceStart = miIndex + 4;
+        }
+        else if (kmIndex != -1) {
+            sliceStart = kmIndex+ 4;
+        }
+
+        let sliceEnd = this.text.indexOf(" with ", sliceStart);
+        if (sliceEnd == -1) {
+            sliceEnd = this.text.indexOf(" - ", sliceStart);
+        }
+
+        // return the activity
+        if (sliceEnd !== -1) {
+            return this.text.substring(sliceStart, sliceEnd).trim();
+        }
 
         return "unknown";
     }
@@ -92,7 +122,27 @@ class Tweet {
         if(this.source != 'completed_event') {
             return 0;
         }
-        //TODO: prase the distance from the text of the tweet
+
+        // parses mi and converts to float
+        if (this.text.includes(" mi ")) {
+
+            let frontSlice = this.text.split(" mi ")[0];
+            let separated = frontSlice.split(" ");
+            let distanceString = separated[separated.length - 1];
+    
+            return parseFloat(distanceString);
+        }
+
+        // parses km, convert to mi (1 mi = 1.609 km)
+        else if (this.text.includes( " km ")) {
+            let frontSlice = this.text.split(" km ")[0];
+            let separated = frontSlice.split(" ");
+            let distanceString = separated[separated.length - 1];
+
+            return parseFloat(distanceString) / 1.609;
+        }
+
+        // returns 0 for time-based workouts
         return 0;
     }
 

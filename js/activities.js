@@ -9,6 +9,28 @@ function parseTweets(runkeeper_tweets) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 
+	// tallying distances/lengths & activities
+	let numWeekday = 0;
+	let weekdayDistance = 0;
+	let numWeekend = 0;
+	let weekendDistance = 0;
+
+	let numActivity = {};
+	let activityDistances = {};
+
+	tweet_array.forEach(function(tweet) {
+		let activityType = tweet.activityType;
+		let distance = tweet.distance;
+	}
+
+	// sort activities by frequency
+
+	// top 3 activities to replace in span
+
+	// longest & shortest distances
+
+	// update spans
+
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
 
 	activity_vis_spec = {

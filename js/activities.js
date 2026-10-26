@@ -22,24 +22,26 @@ function parseTweets(runkeeper_tweets) {
 		let activityType = tweet.activityType;
 		let distance = tweet.distance;
 
-		if (numActivity[type] == undefined) {
-			numActivity[type] = 0;
-			activityDistances[type] = 0;
-		}
-
-		numActivity[type]++;
-		activityDistances[type] += distance;
-
-		// check for day of the week
-		let timeString = tweet.time.toString();
-		if (timeString.includes("Sat ") || timeString.includes("Sun ")) {
-			numWeekend++;
-			weekendDistance += distance;
-		}
-
-		else {
-			numWeekday++;
-			weekdayDistance += distance;
+		if (type !== "unknown" && distance > 0) {
+			if (numActivity[type] == undefined) {
+				numActivity[type] = 0;
+				activityDistances[type] = 0;
+			}
+	
+			numActivity[type]++;
+			activityDistances[type] += distance;
+	
+			// check for day of the week
+			let timeString = tweet.time.toString();
+			if (timeString.includes("Sat ") || timeString.includes("Sun ")) {
+				numWeekend++;
+				weekendDistance += distance;
+			}
+	
+			else {
+				numWeekday++;
+				weekdayDistance += distance;
+			}
 		}
 	});
 
@@ -64,7 +66,28 @@ function parseTweets(runkeeper_tweets) {
 	let second = activityArray[1];
 	let third = activityArray[2];
 
-	// longest & shortest distances
+	// average & find longest & shortest distances
+	let topThree = [first, second, third];
+
+	topThree.sort(function(x, y) {
+		let xDistance = activityDstances[x] / numActivity[x];
+		let yDistance = activityDistances[y] / numActivity [y];
+		
+		if (xDistance > yDistance) {
+			return -1;
+		}
+
+		else if (xDistance < yDistance) {
+			return 1;
+		}
+
+		else {
+			return 0;
+		}
+	});
+
+	let longestActivity = topThree[0];
+	let shortestActivity = topThree[2];
 
 
 	// update spans

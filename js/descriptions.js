@@ -1,3 +1,4 @@
+let writtenTweets = [];
 function parseTweets(runkeeper_tweets) {
 	//Do not proceed if no tweets loaded
 	if(runkeeper_tweets === undefined) {
@@ -18,7 +19,7 @@ function addEventHandlerForSearch() {
 	let searchBox = document.getElementById("textFilter");
 	let searchCount = document.getElementById("searchCount");
 	let searchText = document.getElementById("searchText");
-	let tableBody = document.getElementById("tableBody");
+	let tweetTable = document.getElementById("tweetTable");
 
 	searchBox.addEventListener('input', function() {
 		let inputtedText = searchBox.value;
@@ -28,7 +29,7 @@ function addEventHandlerForSearch() {
 		searchText.innerText = inputtedText;
 		if (inputtedText == "") {
 			searchCount.innerText = 0;
-			tableBody.innerHTML = "";
+			tweetTable.innerHTML = "";
 			return;
 		}
 
@@ -46,15 +47,15 @@ function addEventHandlerForSearch() {
 		});
 		searchCount.innerText = searchedMatch.length;
 
+		
 		// table creation
-		let allHTMLRows = "meow";
+		let allHTMLRows = "";
 		searchedMatch.forEach(function(tweet, index) {
 			let rowNum = index + 1;
 			let singularHTMLRow = tweet.getHTMLTableRow(rowNum);
 			allHTMLRows = allHTMLRows + singularHTMLRow;
 		})
-
-		tableBody.innerHTML = allRowsHTML;
+		tweetTable.innerHTML = allHTMLRows;
 	});
 }
 

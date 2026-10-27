@@ -220,23 +220,23 @@ function parseTweets(runkeeper_tweets) {
     let allPointsVis = document.getElementById('distanceVis');
     let meansVis = document.getElementById('distanceVisAggregated');
 
-    // Hide the means graph immediately when the page loads
+    // hide means graph upon page load
     meansVis.style.display = 'none';
 
     aggregateButton.addEventListener('click', function() {
-        if (allPointsVis.style.display === 'block' || allPointsVis.style.display === '') {
+        if (allPointsVis.style.display === 'block' || allPointsVis.style.display === '')
+			{
             allPointsVis.style.display = 'none';
             meansVis.style.display = 'block';
             aggregateButton.innerText = 'Show all activities';
         } 
+
         else {
             allPointsVis.style.display = 'block';
             meansVis.style.display = 'none';
             aggregateButton.innerText = 'Show means';
         }
     });
-	//TODO: create the visualizations which group the three most-tweeted activities by the day of the week.
-	//Use those visualizations to answer the questions about which activities tended to be longest and when.
 }
 
 //Wait for the DOM to load

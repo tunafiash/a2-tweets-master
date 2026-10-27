@@ -114,29 +114,126 @@ function parseTweets(runkeeper_tweets) {
 
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
 
+	let topThreeTweets = [];
+    let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    tweet_array.forEach(function(tweet) {
+        if (tweet.activityType === first || tweet.activityType === second || tweet.activityType === third) {
+            topThreeTweets.push({
+                "activity": tweet.activityType,
+                "distance": tweet.distance,
+                "day": daysOfWeek[tweet.time.getDay()]
+            });
+        }
+    });
+
 	// graph 1: how many of each type of activity exists in the dataset
+	let activityData = [];
+    let types = Object.keys(numActivity);
+
+    types.forEach(function(type) {
+        activityData.push({
+            "activity": type, 
+            "count": numActivity[type]
+        });
+    });
+
 	activity_vis_spec = {
 		"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 		"description": "A graph of the number of Tweets containing each type of activity.",
 		"data": {
-			"values": tweet_array
+			"values": activityData
 		},
 		"mark": "bar",
 		"encoding": {
 			"x": {
-				field: "activityType",
+				field: "activity",
 				type: "nominal"
 			},
-			y: {
-			aggregate: "count",
-			type: "quantitative"
+
+			"y": {
+				field: "count",
+				type: "quantitative"
 		}
 		}
 	};
 	vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
 
-	
+	// graph 2: distances by day of the week: including top 3 activities
+    let distance_vis_spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Distances by day of the week for top 3 activities.",
+        "data": { 
+			"values": topThreeTweets
+		},
+        "mark": "point",
+        "encoding": {
+            "x": {
+                "field": "day",
+                "type": "nominal",
+                "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+            },
 
+            "y": {
+				"field": "distance",
+				"type": "quantitative",
+			},
+
+            "color": {
+				"field": "activity",
+				"type": "nominal",
+			}
+        }
+    };
+    vegaEmbed('#distanceVis', distance_vis_spec, {actions:false});
+
+    // graph 3: distances by day of the week: including top 3 activities
+	// + AGGREGATING BY MEAN
+    let distance_vis_aggregated_spec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "Mean distances by day of the week for top 3 activities.",
+        "data": { 
+			"values": topThreeTweets
+		},
+        "mark": "point",
+        "encoding": {
+            "x": {
+                "field": "day",
+                "type": "nominal",
+                "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+            },
+            "y": { 
+                "field": "distance", 
+                "type": "quantitative", 
+                "aggregate": "mean",
+            },
+            "color": {
+				"field":"activity",
+				"type": "nominal",}
+        }
+    };
+    vegaEmbed('#distanceVisAggregated', distance_vis_aggregated_spec, {actions:false});
+
+	// toggle button between visualizations 2 & 3
+	let aggregateButton = document.getElementById('aggregate');
+    let allPointsVis = document.getElementById('distanceVis');
+    let meansVis = document.getElementById('distanceVisAggregated');
+
+    // Hide the means graph immediately when the page loads
+    meansVis.style.display = 'none';
+
+    aggregateButton.addEventListener('click', function() {
+        if (allPointsVis.style.display === 'block' || allPointsVis.style.display === '') {
+            allPointsVis.style.display = 'none';
+            meansVis.style.display = 'block';
+            aggregateButton.innerText = 'Show all activities';
+        } 
+        else {
+            allPointsVis.style.display = 'block';
+            meansVis.style.display = 'none';
+            aggregateButton.innerText = 'Show means';
+        }
+    });
 	//TODO: create the visualizations which group the three most-tweeted activities by the day of the week.
 	//Use those visualizations to answer the questions about which activities tended to be longest and when.
 }

@@ -112,8 +112,13 @@ function parseTweets(runkeeper_tweets) {
 	document.getElementById('shortestActivityType').innerText = shortestActivity;
 	document.getElementById('weekdayOrWeekendLonger').innerText = higherAverage;
 
+	// hard-coding spans logic
+	// document.getElementById('longestActivityType').innerText = "bike"
+	// document.getElementById('shortestActivityType').innerText = "walk"
+	// document.getElementById('weekdayOrWeekendLonger').innerText = "weekends"
+
 	
-	// -- VISUALIZATION SECTION --
+	// -- DATA VISUALIZATION SECTION --
 
 	let topThreeTweets = [];
     let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -172,17 +177,18 @@ function parseTweets(runkeeper_tweets) {
             "x": {
                 "field": "day",
                 "type": "nominal",
-                "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+                "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+				"title": "time (day)"
             },
 
             "y": {
 				"field": "distance",
-				"type": "quantitative",
+				"type": "quantitative"
 			},
 
             "color": {
 				"field": "activity",
-				"type": "nominal",
+				"type": "nominal"
 			}
         }
     };
@@ -202,15 +208,17 @@ function parseTweets(runkeeper_tweets) {
                 "field": "day",
                 "type": "nominal",
                 "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+				"title": "time (day)"
             },
             "y": { 
                 "field": "distance", 
                 "type": "quantitative", 
-                "aggregate": "mean",
+                "aggregate": "mean"
             },
             "color": {
 				"field":"activity",
-				"type": "nominal",}
+				"type": "nominal"
+			}
         }
     };
     vegaEmbed('#distanceVisAggregated', distance_vis_aggregated_spec, {actions:false});

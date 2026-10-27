@@ -4,7 +4,14 @@ function parseTweets(runkeeper_tweets) {
 		window.alert('No tweets returned');
 		return;
 	}
+	
+	let tweet_array = runkeeper_tweets.map(function(tweet) {
+        return new Tweet(tweet.text, tweet.created_at);
+    });
 
+	writtenTweets = tweet_array.filter(function(tweet) {
+		return tweet.written == true;
+	}
 }
 
 function addEventHandlerForSearch() {

@@ -112,7 +112,8 @@ function parseTweets(runkeeper_tweets) {
 	document.getElementById('shortestActivityType').innerText = shortestActivity;
 	document.getElementById('weekdayOrWeekendLonger').innerText = higherAverage;
 
-	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
+	
+	// -- VISUALIZATION SECTION --
 
 	let topThreeTweets = [];
     let daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

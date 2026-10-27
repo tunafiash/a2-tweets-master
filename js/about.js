@@ -84,7 +84,6 @@ function parseTweets(runkeeper_tweets) {
     document.querySelector('.achievementsPct').innerText = formattedAchievement;
     document.querySelector('.miscellaneousPct').innerText = formattedMiscellaneous;
 
-
 	// user-written tweets
 	let numWritten = 0;
 

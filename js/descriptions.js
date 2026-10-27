@@ -5,7 +5,6 @@ function parseTweets(runkeeper_tweets) {
 		return;
 	}
 
-	//TODO: Filter to just the written tweets
 }
 
 function addEventHandlerForSearch() {

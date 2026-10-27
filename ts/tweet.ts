@@ -79,13 +79,13 @@ class Tweet {
         let lowerText = this.text.toLowerCase()
 
         // hardcode top 3 common activities
-        if (lowerText.includes("run")) {
-            return "run";
+        if (lowerText.includes(" run ")) {
+            return " run";
         }
-        if (lowerText.includes("bike")) {
+        if (lowerText.includes(" bike ")) {
             return "bike";
         }
-        if (lowerText.includes("walk")) {
+        if (lowerText.includes(" walk ")) {
             return "walk";
         }
         

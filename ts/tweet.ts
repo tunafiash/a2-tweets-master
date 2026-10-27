@@ -147,11 +147,11 @@ class Tweet {
     }
 
     getHTMLTableRow(rowNumber:number):string {
-        //TODO: return a table row which summarizes the tweet with a clickable link to the RunKeeper activity
-        
+
         let tweetText = this.text
         let linkStartIndex = this.text.indexOf("https://");
 
+        // parsing link
         if (linkStartIndex !== -1) {
             let linkEndIndex = this.text.indexOf(" ", linkStartIndex);
             let link = "meow";
@@ -164,8 +164,8 @@ class Tweet {
                 link = this.text.substring(linkStartIndex, linkEndIndex)
             }
 
+            // format clickable link
             let clickableLink = "<a href='" + link + "'>" + link + "</a>";
-            
             tweetText = this.text.replace(link, clickableLink);
         }
 

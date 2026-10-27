@@ -11,19 +11,17 @@ function parseTweets(runkeeper_tweets) {
 
 	writtenTweets = tweet_array.filter(function(tweet) {
 		return tweet.written == true;
-	}
+	});
 }
 
 function addEventHandlerForSearch() {
-	//TODO: Search the written tweets as text is entered into the search box, and add them to the table
-
 	let searchBox = document.getElementById("textFilter");
 	let searchCount = document.getElementById("searchCount");
 	let searchText = document.getElementById("searchText");
 	let tableBody = document.getElementById("tableBody");
 
 	searchBox.addEventListener('input', function() {
-		let inputtedText = searchBox.ariaValueMax;
+		let inputtedText = searchBox.value;
 		let lowerCase = inputtedText.toLowerCase();
 
 		// update text box span and check if box is empty
@@ -39,16 +37,25 @@ function addEventHandlerForSearch() {
 			let lowerCaseTweet = currentTweetText.toLowerCase();
 
 			// check if inputted text results in an existing tweet
-			if (lowerCaseTweet.includes(lowerCaseText)) {
+			if (lowerCaseTweet.includes(lowerCase)) {
 				return true;
 			}
 			else {
 				return false;
 			}
 		});
+		searchCount.innerText = searchedMatch.length;
 
-	})
+		// table creation
+		let allHTMLRows = "meow";
+		searchedMatch.forEach(function(tweet, index) {
+			let rowNum = index + 1;
+			let singularHTMLRow = tweet.getHTMLTableRow(rowNum);
+			allHTMLRows = allHTMLRows + singularHTMLRow;
+		})
 
+		tableBody.innerHTML = allRowsHTML;
+	});
 }
 
 //Wait for the DOM to load
